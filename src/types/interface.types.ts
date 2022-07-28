@@ -43,6 +43,7 @@ export interface ProposalFormState {
 	amount?: number;
 	asaId?: number;
 	message: string;
+	execute_before: string;
 }
 
 export interface DaoItemType {

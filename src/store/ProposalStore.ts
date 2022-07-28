@@ -14,6 +14,7 @@ export default defineStore("ProposalStore", {
 			amount: undefined,
 			asaId: undefined,
 			message: "",
+			execute_before: "",
 		};
 	},
 	actions: {
@@ -27,6 +28,7 @@ export default defineStore("ProposalStore", {
 			this.amount = value.amount;
 			this.asaId = value.asaId;
 			this.message = value.message;
+			this.execute_before = value.execute_before;
 			console.log("state", this.$state);
 		},
 		setProposalAddr(value: string) {

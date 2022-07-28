@@ -96,6 +96,18 @@
 						/>
 					</a-form-item>
 					<a-form-item
+						label="Execute Before"
+						name="execute_before"
+						:rules="[{ required: true, validator: validateExecuteBefore }]"
+					>
+						<a-time-picker
+							v-model:value="formState.execute_before"
+							showTime
+							format="YYYY-MM-DD HH:mm"
+							value-format="YYYY-MM-DD HH:mm"
+						/>
+					</a-form-item>
+					<a-form-item
 						label="Proposal Type"
 						name="proposal_type"
 						:rules="[{ required: true }]"
@@ -202,6 +214,7 @@ import ProposalTable from "@/components/ProposalTable.vue";
 import type { FormInstance } from "ant-design-vue";
 import DaoStore from "../store/DaoID";
 import ProposalTableStore from "../store/ProposalTableStore";
+import { Rule } from "ant-design-vue/lib/form";
 const { getApplicationAddress } = require("algosdk");
 
 export default defineComponent({
@@ -237,6 +250,29 @@ export default defineComponent({
 		toggleModalVisible() {
 			this.isModalVisible = !this.isModalVisible;
 		},
+		//  execute_before must be after voting_end
+		async validateExecuteBefore(_rule: Rule, value: string) {
+			if (value === null) {
+				return Promise.reject("Please input execute before time.");
+			} else {
+				if (
+					this.formState.execute_before !== undefined &&
+					this.formState.vote_date !== undefined &&
+					this.formState.vote_date[1].length
+				) {
+					const execute_before = convertToSeconds(
+						this.formState.execute_before
+					);
+					const voting_end = convertToSeconds(this.formState.vote_date[1]);
+					if (execute_before <= voting_end) {
+						return Promise.reject(
+							"Execute before must be after voting end time."
+						);
+					} else return Promise.resolve();
+				}
+				return Promise.resolve();
+			}
+		},
 		async onFinish(values: any) {
 			try {
 				let {
@@ -249,6 +285,7 @@ export default defineComponent({
 					vote_date,
 					message,
 					asaId,
+					execute_before,
 				} = values;
 				this.error = overallErrorCheck();
 				if (!this.error) {
@@ -262,7 +299,7 @@ export default defineComponent({
 					);
 					const startTime = convertToSeconds(vote_date[0]);
 					const endTime = convertToSeconds(vote_date[1]);
-					const executeBefore = endTime + 7 * 60; // end time + 7 minutes in seconds
+					const executeBefore = convertToSeconds(execute_before);
 					// Default proposal params. Other params are added based on proposal type in below switch case.
 					const proposalParams = [
 						DAOActions.ADD_PROPOSAL,
