@@ -1,6 +1,14 @@
 <template>
 	<a-row>
 		<a-col :span="12" :offset="6">
+			<p>
+				You can deposit gov tokens to vote for multiple proposals by delegating
+				your tokens.
+			</p>
+		</a-col>
+	</a-row>
+	<a-row>
+		<a-col :span="12" :offset="6">
 			<div v-if="error" class="margin_bottom_sm">
 				<a-alert
 					message="Error"

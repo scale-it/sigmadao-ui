@@ -74,7 +74,7 @@
 							</a-descriptions-item>
 							<a-descriptions-item>
 								<template #label>
-									available
+									Available
 									<info-tool-tip
 										data="The tokens are available for you to deposit and vote."
 									/>
@@ -83,7 +83,7 @@
 							>
 							<a-descriptions-item>
 								<template #label>
-									locked
+									Locked
 									<info-tool-tip
 										data="The tokens are locked for the voting period. You can
 												withdraw them once the voting period ends."
@@ -126,7 +126,7 @@ import {
 	UNSUCCESSFUL,
 } from "@/constants";
 import WalletStore from "@/store/WalletStore";
-import { optInDaoApp } from "@/utility";
+import { optInToAppUsingSecretKey } from "@/utility";
 import InfoToolTip from "./InfoToolTip.vue";
 
 export default defineComponent({
@@ -220,7 +220,7 @@ export default defineComponent({
 		async optIn() {
 			try {
 				if (this.daoID) {
-					await optInDaoApp(
+					await optInToAppUsingSecretKey(
 						this.walletStore.address,
 						this.daoID,
 						this.walletStore.webMode
@@ -228,7 +228,7 @@ export default defineComponent({
 					this.showOptIn = false;
 					openSuccessNotificationWithIcon(
 						"Successful",
-						daoAppMessage.SUCCESSFUL(this.daoID)
+						daoAppMessage.OPT_IN_SUCCESFUL(this.daoID)
 					);
 				}
 			} catch (error) {

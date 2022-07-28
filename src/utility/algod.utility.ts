@@ -30,7 +30,7 @@ export const fundAmount = async (
 	console.log("Funded: ", response);
 };
 
-export const optInToApp = async (
+export const optInToAppUsingLogicSig = async (
 	lsig: LogicSigAccount,
 	execParam: types.ExecParams
 ) => {
@@ -76,7 +76,7 @@ export const compileToUnit8Array = async (appProgram: string) => {
 	return new Uint8Array(Buffer.from(response["result"], "base64"));
 };
 
-export const optInDaoApp = async (
+export const optInToAppUsingSecretKey = async (
 	from: string,
 	appID: number,
 	webMode: any // eslint-disable-line
@@ -92,7 +92,8 @@ export const optInDaoApp = async (
 		payFlags: {},
 	};
 	try {
-		webMode.executeTx([execParam]);
+		const response = await webMode.executeTx([execParam]);
+		console.log(response);
 	} catch (error) {
 		console.error("Transaction Failed", error);
 		throw error;

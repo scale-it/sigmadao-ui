@@ -15,6 +15,7 @@ export const LOCAL_STATE_MAP_KEY = {
 export const GLOBAL_STATE_MAP_KEY = {
 	DaoName: "dao_name",
 	Url: "url",
+	Deposit: "deposit",
 };
 export const MINUTE_TO_SECONDS = 60;
 export const HOUR_TO_SECONDS = 60 * MINUTE_TO_SECONDS;
@@ -47,6 +48,8 @@ export const daoAppMessage = {
 	ALREADY_OPT_IN: "You have already Opted-in DAO App",
 	SUCCESSFUL: (daoID: number) => `Your DAO App of ID ${daoID} is selected.`,
 	UNSUCCESFUL: "Unsuccessful while getting DAO App Opt-in Details",
+	OPT_IN_SUCCESFUL: (daoID: number) =>
+		`You have successfully opted-in DAO App of ID ${daoID}.`,
 };
 
 export const voteMessage = {

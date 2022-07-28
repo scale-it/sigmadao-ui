@@ -1,6 +1,15 @@
 <template>
 	<a-row>
 		<a-col :span="12" :offset="6">
+			<p>
+				You can unlock the deposited gov tokens and withdraw them back for
+				further different uses. You can only withdraw the deposit after the
+				latest voting in which you participated has ended.
+			</p>
+		</a-col>
+	</a-row>
+	<a-row>
+		<a-col :span="12" :offset="6">
 			<div v-if="error" class="margin_bottom_sm">
 				<a-alert
 					message="Error"

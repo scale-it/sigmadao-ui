@@ -34,10 +34,15 @@
 import { ROWS_PER_PAGE } from "@/constants";
 import { PaginationCallType } from "@/types";
 import { defineComponent, ref } from "vue";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons-vue";
 
 export default defineComponent({
 	name: "TablePagination",
 	props: ["totalDataRowsCount", "currentPage", "paginationHandler"],
+	components: {
+		LeftOutlined,
+		RightOutlined,
+	},
 	data() {
 		return {
 			ROWS_PER_PAGE,
